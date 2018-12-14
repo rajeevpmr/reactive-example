@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import reactor.bus.Event;
 import reactor.bus.EventBus;
+
 
 @Controller
 public class NotificationController {
@@ -19,7 +21,8 @@ public class NotificationController {
     private NotificationService notificationService;
 
     @RequestMapping("/sendasync/{param}")
-    public void startNotification(@PathVariable Integer param){
+    @ResponseBody
+    public String startNotification(@PathVariable Integer param){
 
         for (int i = 0; i < param ; i++) {
 
@@ -31,10 +34,13 @@ public class NotificationController {
             System.out.println("Notification "+i+ " Submitted succesfully");
 
         }
+
+        return "{All the messages submitted successfully}";
     }
 
     @RequestMapping("/sendsync/{param}")
-    public void startNotificationTraditional(@PathVariable Integer param){
+    @ResponseBody
+    public String startNotificationTraditional(@PathVariable Integer param){
 
         for (int i = 0; i < param ; i++) {
 
@@ -50,6 +56,7 @@ public class NotificationController {
             System.out.println("Notification "+i+ " Submitted succesfully");
 
         }
+        return "{All the messages submitted successfully}";
     }
 
 }
